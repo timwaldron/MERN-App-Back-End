@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 mongoose.set('useCreateIndex', true);
-const businessSchema = require('./businessSchema')
-const Business = mongoose.model('business', businessSchema); 
 
-const claimSchema = {
-  businessID: { type: mongoose.Schema.Types.ObjectId, ref: 'business' },
+const Schema = mongoose.Schema;
+
+const claimSchema = new Schema({
+  businessID: { type: Schema.Types.ObjectId, ref: 'business' },
   claimID: String,
   disclosureType: Array,
   actionedDate: String,
@@ -12,7 +12,7 @@ const claimSchema = {
   comments: Array,
   status: Array,
   claimData: Array
-}
+})
 
 
 
