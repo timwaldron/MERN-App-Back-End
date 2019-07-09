@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 mongoose.set('useCreateIndex', true);
 
-const clientSchema = {
+const businessSchema = {
   businessID: String,
   businessName: String, 
   abn: String
 }
 
-module.exports = mongoose.model('client', clientSchema)
+module.exports = mongoose.model('business', businessSchema)
