@@ -11,7 +11,7 @@ const claimSchema = new Schema({
   lodgementDate: String,
   comments: Array,
   status: Array,
-  claimData: Array
+  formData: Array
 })
 
 
