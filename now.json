@@ -2,6 +2,9 @@
   "name": "back-end",
   "alias": "back-end",
   "version": 2,
+  "env": {
+    "DB_URL": "@db-url"
+  },
   "builds" : [
     { "src": "server.js", "use": "@now/node-server" }
   ],
