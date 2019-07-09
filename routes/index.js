@@ -8,11 +8,11 @@ router.use(cors());
 
 // routing
 // router.use('/seed', require('./seedRoutes'));
-// router.use('/recipe', require('./recipeRoutes'));
+router.use('/claims', require('./claimsRoutes'));
 
 
 router.use("/", (req, res) => {
-  res.status(200).send("Hello!");
+  res.status(200).send({status: 200, message: "Service online"});
 });
 
 module.exports = router;
