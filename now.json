@@ -1,0 +1,11 @@
+{
+  "name": "back-end",
+  "alias": "back-end",
+  "version": 2,
+  "builds" : [
+    { "src": "server.js", "use": "@now/node-server" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "server.js" }
+  ]
+}
