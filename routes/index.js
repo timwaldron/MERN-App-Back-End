@@ -8,7 +8,7 @@ router.use(cors());
 
 // routing
 // router.use('/seed', require('./seedRoutes'));
-router.use('/claims', require('./claimsRoutes'));
+router.use('/claim', require('./claimRoutes'));
 
 
 router.use("/", (req, res) => {

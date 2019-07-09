@@ -1,4 +1,23 @@
-const Recipe = require('../models/recipe');
+const Claim = require('../models/Claim');
+
+const createClaim = async() => {
+  try {
+    let newClaim = new Claim({
+      claimID: "04SGNF",
+      disclosureType: ["Harrasment", "Abuse"],
+      actionedDate: "12/12/2019",
+      lodgementDate: "11/12/2019",
+      comments: ["Object", "Object", "Object", "Object"],
+      status: "Open",
+      claimData: ["Document1", "Document2"]
+    });
+
+    let savedClaim = await newClaim.save();
+    console.log("Successfully create single recipe:", savedClaim);
+  } catch (ex) { 
+    console.log(ex);
+  }
+}
 
 // const createSeedRecipe = async(amount) => {
 //   console.log("createSeedRecipe function");
@@ -72,6 +91,5 @@ const Recipe = require('../models/recipe');
 // }
 
 module.exports = {
-  seedOne,
-  seedMany
+  createClaim,
 };
