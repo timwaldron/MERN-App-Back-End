@@ -1,12 +1,13 @@
 const Claim = require('../models/Claim');
 
-const createClaim = async() => {
+const createClaim = async(req, res) => {
+  let newClaim = {response: undefined}
   try {
-    let newClaim = new Claim({
+    newClaim = new Claim({
       claimID: "04SGNF",
       disclosureType: ["Harrasment", "Abuse"],
       actionedDate: "12/12/2019",
-      lodgementDate: "11/12/2019",
+      lodgementDate: new Date().toString(),
       comments: ["Object", "Object", "Object", "Object"],
       status: "Open",
       claimData: ["Document1", "Document2"]
@@ -17,6 +18,8 @@ const createClaim = async() => {
   } catch (ex) { 
     console.log(ex);
   }
+
+  await res.status(200).send(newClaim);
 }
 
 // const createSeedRecipe = async(amount) => {

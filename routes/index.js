@@ -8,8 +8,7 @@ router.use(cors());
 
 // routing
 // router.use('/seed', require('./seedRoutes'));
-router.use('/claim', require('./claimRoutes'));
-
+router.use('/api', require('./apiRoutes'));
 
 router.use("/", (req, res) => {
   res.status(200).send({status: 200, message: "Service online"});
