@@ -1,4 +1,4 @@
-const User = require('../models/Admin')
+const Admin = require('../models/Admin')
 const { checkPassword, generateUser, generateAccessToken } = require('../utils/authUtils').default.default
 
 // register post endpoint
