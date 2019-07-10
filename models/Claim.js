@@ -7,8 +7,8 @@ const claimSchema = new Schema({
   claimId: String,          // <ABCD1234>
   businessId: String,       // <ABC001>
   disclosureLevel: String,  // "0", "1", "2"
-  categories: Array,
-  details: Array,
+  categories: Object,
+  details: Object,
   status: String,
   comments: Array,
   attachments: Array,
