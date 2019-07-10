@@ -15,7 +15,7 @@ const createClaim = async(req, res) => {
     });
 
     let savedClaim = await newClaim.save();
-    console.log("Successfully create single recipe:", savedClaim);
+    console.log("Successfully created new claim:", savedClaim);
   } catch (ex) { 
     console.log(ex);
   }

@@ -4,6 +4,7 @@ const router = express.Router();
 
 const { createClaim /*, seedMany*/ } = require('../controllers/claimController');
 
-router.get('/new', createClaim);
+// router.get('/new', createClaim);
+router.post('/new', createClaim);
 
 module.exports = router;
