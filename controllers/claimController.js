@@ -1,16 +1,17 @@
 const Claim = require('../models/Claim');
 
 const createClaim = async(req, res) => {
+  const { answer1 } = req.body;
   let newClaim = {response: undefined}
   try {
     newClaim = new Claim({
       claimID: "04SGNF",
+      claimData: [answer1, "Document2"],
       disclosureType: ["Harrasment", "Abuse"],
       actionedDate: "12/12/2019",
       lodgementDate: new Date().toString(),
       comments: ["Object", "Object", "Object", "Object"],
       status: "Open",
-      claimData: ["Document1", "Document2"]
     });
 
     let savedClaim = await newClaim.save();
