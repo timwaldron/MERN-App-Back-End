@@ -1,9 +1,12 @@
 const Claim = require('../models/Claim');
 
 const createClaim = async(req, res) => {
-  const { categories, answers } = req.body.newClaim;
+  console.log(req.body);
+  console.log("-------------------------------");
+  const { categories, answers } = req.body;
 
   let newClaim = {response: undefined}
+
   try {
     newClaim = new Claim({
       claimId: "ABCD1234",          // <ABCD1234>
@@ -16,8 +19,8 @@ const createClaim = async(req, res) => {
       attachments: [],
       confirmed: true,
       timestamps: {             // Timestamps
-        createdAt: Date.now().toString(),
-        updatedAt: Date.now().toString(),
+        createdAt: new Date().toString(),
+        updatedAt: new Date().toString(),
         actionedAt: "undefined",
         closedAt: "undefined",
       },
