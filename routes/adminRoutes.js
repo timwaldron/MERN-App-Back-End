@@ -1,8 +1,7 @@
-// private routes go here
 const express = require('express')
 const jwt = require('jsonwebtoken')
 const router = express.Router()
-const { currentUser } = require('../controllers/private-controller')
+const { currentUser } = require('../controllers/admin/adminController')
 
 const checkAccessToken = (req, res, next) => {
   const { token } = req.headers
@@ -19,6 +18,7 @@ const checkAccessToken = (req, res, next) => {
 
 router.use(checkAccessToken)
 
-router.get('/current-user', currentUser)
+router.route('/adminController')
+  .get(currentUser)
 
 module.exports = router

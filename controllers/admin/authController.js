@@ -1,5 +1,5 @@
-const Admin = require('../models/Admin')
-const { checkPassword, generateUser, generateAccessToken } = require('../utils/authUtils').default.default
+const Admin = require('../../models/Admin')
+const { checkPassword, generateUser, generateAccessToken } = require('../../utils/authUtils').default.default
 
 // register post endpoint
 const register = async (req, res) => {
@@ -35,7 +35,7 @@ const login = async (req, res) => {
           return res.status(403).send('incorrect credentials')
         } else {
           const token = await generateAccessToken(foundUser)
-          return res.send({ token })
+          return res.cookie('token', token, { httpOnly: true, sameSite})
         }
       } else {
         return res.status(403).send('incorrect credentials')
