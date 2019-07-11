@@ -7,11 +7,7 @@ router.use(express.json())
 router.use(cors());
 
 // routing
-// router.use('/seed', require('./seedRoutes'));
-router.use('/api', require('./apiRoutes'));
-
-router.use("/", (req, res) => {
-  res.status(200).send({status: 200, message: "Service online"});
-});
+router.use('/admin', require('./adminRoutes'));
+router.use('/claim', require('./claimRoutes'));
 
 module.exports = router;
