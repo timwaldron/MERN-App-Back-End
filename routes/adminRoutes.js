@@ -1,7 +1,7 @@
 const express = require('express')
 const jwt = require('jsonwebtoken')
 const router = express.Router()
-const { currentUser } = require('../controllers/admin/adminController')
+const { login } = require('../controllers/admin/adminController')
 
 const checkAccessToken = (req, res, next) => {
   const { token } = req.headers
@@ -16,9 +16,7 @@ const checkAccessToken = (req, res, next) => {
   })
 }
 
-router.use(checkAccessToken)
-
-router.route('/adminController')
-  .get(currentUser)
+router.route('/login')
+  .post(login)
 
 module.exports = router
