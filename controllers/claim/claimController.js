@@ -12,6 +12,7 @@ const createClaim = async(req, res) => {
       claimId: "ABCD1234",          // <ABCD1234>
       businessId: "undefiend",       // <ABC001>
       disclosureLevel: "1",  // "0", "1", "2"
+      secretKey: "$ecret",
       categories: categories,
       details: answers,
       status: "new",
@@ -47,11 +48,15 @@ const findClaim = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { claimId } = req.body;
-  console.log("Login:", req.body);
+  const { businessId, secretKey } = req.body;
+  console.log("businessId:", businessId);
+  console.log("secretKey:", secretKey);
+  console.log("req.body:", req.body);
+
   try {
-    const foundClaim = await Claim.findOne(claimId)
-    res.send(foundClaim)
+    const foundClaim = await Claim.find({secretKey: secretKey, businessId: businessId});
+    console.log("foundClaim:", foundClaim);
+    res.status(200).send({status: 200, message: "Sucessfully found record for business " + foundClaim.businessId});
   } catch (error) {
     res.send(error.message)
   }
