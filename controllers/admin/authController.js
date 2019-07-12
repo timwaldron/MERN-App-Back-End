@@ -1,5 +1,5 @@
 const Admin = require('../../models/Admin')
-const { checkPassword, generateUser, generateAccessToken } = require('../../utils/authUtils').default.default
+const { checkPassword, generateUser, generateAccessToken } = require('../../utils/authUtils')
 
 // register post endpoint
 const register = async (req, res) => {
