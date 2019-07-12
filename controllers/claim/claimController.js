@@ -37,6 +37,18 @@ const createClaim = async(req, res) => {
 
 const findClaim = async (req, res) => {
   const { claimId } = req.body;
+  console.log("REQ.Body:", req.body);
+  try {
+    const foundClaim = await Claim.findOne(claimId)
+    res.send(foundClaim)
+  } catch (error) {
+    res.send(error.message)
+  }
+};
+
+const login = async (req, res) => {
+  const { claimId } = req.body;
+  console.log("Login:", req.body);
   try {
     const foundClaim = await Claim.findOne(claimId)
     res.send(foundClaim)
@@ -59,5 +71,6 @@ const addComment = async (req, res) => {
 module.exports = {
   createClaim,
   findClaim,
-  addComment
+  addComment,
+  login,
 };
