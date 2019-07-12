@@ -1,18 +1,19 @@
 const Claim = require('../../models/Claim');
+const { initKeyGen } = require('../../utils/secretKeyUtils')
 
 const createClaim = async(req, res) => {
   console.log(req.body);
   console.log("-------------------------------");
-  const { categories, answers } = req.body;
+  const { business_id, categories, answers } = req.body;
 
   let newClaim = {response: undefined}
+  let keys = {};
 
   try {
     newClaim = new Claim({
       claimId: "ABCD1234",          // <ABCD1234>
-      businessId: "undefiend",       // <ABC001>
+      businessId: business_id,       // <ABC001>
       disclosureLevel: "1",  // "0", "1", "2"
-      secretKey: "$ecret",
       categories: categories,
       details: answers,
       status: "new",
@@ -26,14 +27,14 @@ const createClaim = async(req, res) => {
         closedAt: "undefined",
       },
     });
-
+    keys = await initKeyGen(newClaim.businessId);
+    newClaim.secretKey = keys.encrypted;
     let savedClaim = await newClaim.save();
     console.log("Successfully created new claim:", savedClaim);
   } catch (ex) { 
     console.log(ex);
   }
-
-  await res.status(200).send(newClaim);
+  await res.status(200).send({secretKey: keys.secret.split('-')[0]});
 };
 
 const findClaim = async (req, res) => {
