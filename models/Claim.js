@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const claimSchema = new Schema({
   claimId: String,          // <ABCD1234>
   businessId: String,       // <ABC001>
+  secretKey: String,        // Bcrypt'd
   disclosureLevel: String,  // "0", "1", "2"
   categories: Object,
   details: Object,
