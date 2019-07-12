@@ -26,7 +26,6 @@ const generateAccessToken = ({ name }) => {
   return jwt.sign({ name }, process.env.JWT_SECRET, { expiresIn: '7d' })
 }
 
-
 module.exports = {
   checkPassword,
   generateUser,
