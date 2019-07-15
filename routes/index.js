@@ -4,7 +4,7 @@ const router = express.Router();
 
 // middleware
 router.use(express.json())
-router.use(cors({ origin: 'https://back-end-timwaldron.mern-project.now.sh' }));
+router.use(cors({ origin: 'https://disclosures.netlify.com' }));
 
 // routing
 router.use('/admin', require('./adminRoutes'));
