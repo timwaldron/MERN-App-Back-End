@@ -4,7 +4,14 @@ const router = express.Router();
 
 // middleware
 router.use(express.json())
-router.use(cors({ origin: 'https://disclosures.netlify.com' }));
+
+if (process.env.ENVIRONMENT === "development") {
+  console.log("Loading dev CORS");
+  router.use(cors());
+}
+else
+  router.use(cors({ origin: 'https://disclosures.netlify.com' }));
+
 
 // routing
 router.use('/admin', require('./adminRoutes'));
