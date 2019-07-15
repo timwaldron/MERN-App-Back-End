@@ -8,8 +8,6 @@ const login = async (req, res) => {
     const { email, password, jwt } = req.body;
     let account = await Admin.findOne({ email });
 
-    console.log("Admin object:", account);
-
     if (!account)
       return res.status(401).send({ status: "error", message: "Invalid email or password" });
 
