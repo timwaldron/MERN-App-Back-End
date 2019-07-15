@@ -1,10 +1,7 @@
 const Admin = require('../../models/Admin');
 const { checkPassword, generateAccessToken } = require('../../utils/authUtils.js');
 const Business = require('../../models/Business')
-
-const currentUser = (req, res) => {
-
-}
+const Claim = require('../../models/Claim')
 
 const createBusiness = async (req, res) => {
   const { businessID, businessName, abn } = req.body
@@ -13,6 +10,15 @@ const createBusiness = async (req, res) => {
     const savedBus = await newBus.save();
     console.log(savedBus)
     res.status(200).send(savedBus)
+  } catch (error) {
+    res.status(503).send(error.message)
+  }
+}
+
+const showDashboard = async (req, res) => {
+  try {
+    const claims = await Claim.find({})
+    res.status(200).send(claims)
   } catch (error) {
     res.status(503).send(error.message)
   }
@@ -42,4 +48,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = {currentUser, login, createBusiness};
+module.exports = {login, createBusiness, showDashboard};

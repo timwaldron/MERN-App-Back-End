@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser')
 require('dotenv').config();
 
 const app = express();
@@ -13,7 +14,9 @@ mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }, (err) => {
     console.log("Connected to MongoDB");
 })
 
+app.use(cookieParser())
 app.use(require('./routes'));
+
 
 app.listen(PORT, (error) => {
   if (error)
