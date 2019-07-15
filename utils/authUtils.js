@@ -13,21 +13,27 @@ const checkPassword = async (password, hash) => {
   return compared
 }
 
-const generateUser = async (username, password) => {
-  const hash = await generateHash(password)
-  const newUser = await Admin.create({
-    name: username,
-    password: hash
-  })
-  return newUser
+const generateAdmin = async (email, password) => {
+  try {
+    const hash = await generateHash(password)
+    const newAdmin = await Admin.create({
+      email: email,
+      password: hash
+    })
+
+    newAdmin.save()
+    return newAdmin
+  } catch(exception) {
+    return { error: "error", message: exception.message };
+  }
 }
 
-const generateAccessToken = ({ name }) => {
-  return jwt.sign({ name }, process.env.JWT_SECRET, { expiresIn: '7d' })
+const generateAccessToken = ({ email }) => {
+  return jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '8h' })
 }
 
 module.exports = {
   checkPassword,
-  generateUser,
+  generateAdmin,
   generateAccessToken
 }
