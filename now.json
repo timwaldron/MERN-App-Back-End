@@ -3,7 +3,8 @@
   "alias": "back-end",
   "version": 2,
   "env": {
-    "DB_URL": "@db-url"
+    "DB_URL": "@db-url",
+    "JWT_SECRET": "@jwt-secret"
   },
   "builds" : [
     { "src": "server.js", "use": "@now/node-server" }
