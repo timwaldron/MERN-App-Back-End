@@ -33,7 +33,7 @@ const login = async (req, res) => {
     if (!passwordMatch)
       return res.status(401).send({ status: "error", message: "Invalid email or password" });
     else {
-      res.cookie('token', generateAccessToken({ email: email, role: "admin" }), {httpOnly: false});
+      res.cookie('token', generateAccessToken({ email: email, role: "admin" }));
       return res.status(200).send({ status: "success", message: "Successfully logged in" });
     }
 
