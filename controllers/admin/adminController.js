@@ -1,5 +1,22 @@
 const Admin = require('../../models/Admin');
 const { checkPassword, generateAccessToken } = require('../../utils/authUtils.js');
+const Business = require('../../models/Business')
+
+const currentUser = (req, res) => {
+
+}
+
+const createBusiness = async (req, res) => {
+  const { businessID, businessName, abn } = req.body
+  try {
+    const newBus = await new Business({businessID, businessName, abn})
+    const savedBus = await newBus.save();
+    console.log(savedBus)
+    res.status(200).send(savedBus)
+  } catch (error) {
+    res.status(503).send(error.message)
+  }
+}
 
 const login = async (req, res) => {
   console.log("Attempting login\nreq.body:", req.body);
@@ -25,4 +42,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = {login};
+module.exports = {currentUser, login, createBusiness};
