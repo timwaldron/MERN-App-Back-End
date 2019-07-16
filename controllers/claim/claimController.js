@@ -54,9 +54,6 @@ const findClaim = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { businessId, secretKey } = req.body;
-
-    console.log("businessId:", businessId);
-    console.log("secretKey:", secretKey);
     
     const foundClaims = await Claim.find({businessId: businessId});
 
@@ -68,7 +65,6 @@ const login = async (req, res) => {
         
         if (match) {
           const { businessId, categories, comments, details } = claim;
-          console.log("FOUND A MATCH!!!")
           return res.status(200).send({businessId, categories, comments, details });
         }
       }
