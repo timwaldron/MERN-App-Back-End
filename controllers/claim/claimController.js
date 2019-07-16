@@ -65,7 +65,7 @@ const login = async (req, res) => {
         
         if (match) {
           const { businessId, categories, comments, details } = claim;
-          return res.status(200).send({businessId, categories, comments, details });
+          return res.status(200).send({claimBusId: businessId, categories, comments, details });
         }
       }
       
