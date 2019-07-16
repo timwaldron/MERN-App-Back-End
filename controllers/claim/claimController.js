@@ -1,7 +1,10 @@
 const Claim = require('../../models/Claim');
-const { initKeyGen } = require('../../utils/secretKeyUtils')
+const Business = require('../../models/Business')
 
-const createClaim = async(req, res) => {
+const { initKeyGen } = require('../../utils/generateUtils')
+const { checkHashMatch } = require('../../utils/authUtils')
+
+const createClaim = async (req, res) => {
   console.log(req.body);
   console.log("-------------------------------");
   const { business_id, categories, answers } = req.body;
@@ -49,17 +52,31 @@ const findClaim = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { businessId, secretKey } = req.body;
-  console.log("businessId:", businessId);
-  console.log("secretKey:", secretKey);
-  console.log("req.body:", req.body);
-
   try {
-    const foundClaim = await Claim.find({secretKey: secretKey, businessId: businessId});
-    console.log("foundClaim:", foundClaim);
-    res.status(200).send({status: 200, message: "Sucessfully found record for business " + foundClaim.businessId});
+    const { businessId, secretKey } = req.body;
+
+    console.log("businessId:", businessId);
+    console.log("secretKey:", secretKey);
+    
+    const foundClaims = await Claim.find({businessId: businessId});
+
+    if (!foundClaims || foundClaims.length === 0)
+      return res.status(401).send({status: "error", message: "Invalid Business ID or Secret Key"});
+    else {
+      for (let claim of foundClaims) {
+        let match = await checkHashMatch(`${secretKey}-${businessId}`, claim.secretKey);
+        
+        if (match) {
+          const { businessId, categories, comments, details } = claim;
+          console.log("FOUND A MATCH!!!")
+          return res.status(200).send({businessId, categories, comments, details });
+        }
+      }
+      
+      return res.status(401).send({status: "error", message: "Invalid Business ID or Secret Key" })
+    }
   } catch (error) {
-    res.send(error.message)
+    res.status(503).send({status: "error", message: "An internal server error has occured"})
   }
 };
 
