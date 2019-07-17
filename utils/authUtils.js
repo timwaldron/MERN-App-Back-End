@@ -13,6 +13,11 @@ const checkPassword = async (password, hash) => {
   return compared
 }
 
+const checkHashMatch = async (itemToCheck, hash) => {
+  const compared = await bcrypt.compare(itemToCheck, hash);
+  return compared
+}
+
 const generateAdmin = async (email, password) => {
   try {
     const hash = await generateHash(password)
@@ -34,6 +39,7 @@ const generateAccessToken = ({ email }) => {
 
 module.exports = {
   checkPassword,
+  checkHashMatch,
   generateAdmin,
-  generateAccessToken
+  generateAccessToken,
 }
