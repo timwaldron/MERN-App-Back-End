@@ -8,9 +8,9 @@ router.route('/login')
 
 router.route('/dashboard')
   .get(checkAccessToken, showDashboard)
-  .post(checkAccessToken)
-  .put(checkAccessToken)
   .patch(checkAccessToken)
+  .put(checkAccessToken)
+  .post(checkAccessToken)
   .delete(checkAccessToken)
 
 module.exports = router
