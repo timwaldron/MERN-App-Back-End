@@ -8,7 +8,6 @@ const checkAccessToken = async (req, res, next) => {
       return res.status(403).send('you are not authorised')
     } else {
       console.log(decoded)// you have access to decoded here
-      req.user = decoded.email
       next()
     }
   })
