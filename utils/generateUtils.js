@@ -2,13 +2,13 @@ const bcrypt = require('bcrypt');
 const Claim = require('../models/Claim');
 const Business = require('../models/Business');
 
-const initKeyGen = async (busid) => {
-  let secretKey = generateSecretKey(busid);
-  let exists = await checkSecretKey(busid, secretKey);
+const initKeyGen = async (busId) => {
+  let secretKey = generateSecretKey(busId);
+  let exists = await checkSecretKey(busId, secretKey);
 
   while(exists) {
-    secretKey = generateSecretKey(busid);
-    exists = await checkSecretKey(busid, secretKey);
+    secretKey = generateSecretKey(busId);
+    exists = await checkSecretKey(busId, secretKey);
   }
 
   const encrypted = await bcrypt.hash(secretKey, 10)
@@ -28,14 +28,26 @@ const initBusinessIdGen = async () => {
   return businessId;
 }
 
-const generateSecretKey = (busid) => {
+const initClaimIdGen = async () => {
+  let claimId = generateClaimId();
+  let exists = await checkClaimId(claimId);
+
+  while(exists) {
+    claimId = generateClaimId();
+    exists = await checkClaimId(claimId);
+  }
+
+  return claimId;
+}
+
+const generateSecretKey = (busId) => {
   let range = "ACDEFGHJKLMNPQRSTUVWXYZ2345679";
   let secretKey = "";
 
-  for(let i = 0; i < 8; i++) {
+  for(let i = 0; i < 8; i++)
     secretKey += range[Math.floor(Math.random() * (range.length))]
-  }
-  secretKey = `${secretKey}-${busid}`
+
+  secretKey = `${secretKey}-${busId}`
 
   return secretKey;
 };
@@ -45,39 +57,61 @@ const generateBusinessId = () => {
   let numArray = "2345679";
   let businessId = "";
 
-  for(let i = 0; i < 3; i++) { // 3 Random Letters
+  for(let i = 0; i < 3; i++) // 3 Random Letters
     businessId += charArray[Math.floor(Math.random() * (charArray.length))]
-  }
-  for(let i = 0; i < 3; i++) { // 3 Random Numbers
+    
+  for(let i = 0; i < 3; i++) // 3 Random Numbers
     businessId += numArray[Math.floor(Math.random() * (numArray.length))]
-  }
   
   return businessId;
 };
 
-const checkSecretKey = async (busid, sk) => {
-  const businessClaims = await Claim.find({businessId: busid});
+const generateClaimId = () => {
+  let range = "ACDEFGHJKLMNPQRSTUVWXYZ2345679";
+  let claimId = "";
+
+  for(let i = 0; i < 8; i++)
+    claimId += range[Math.floor(Math.random() * (range.length))]
+
+  return claimId;
+};
+
+const checkSecretKey = async (busId, sk) => {
+  const businessClaims = await Claim.find({businessId: busId});
   
   if (!businessClaims)
     return false;
 
   for (let claim of businessClaims) {
-    if (bcrypt.compareSync(sk, claim.secretKey)) {
-        return true;
-    }
+    if (bcrypt.compareSync(sk, claim.secretKey))
+      return true;
   }
 
   return false;
 }
 
-const checkBusinessId = async (busid) => {
-  const businesses = await Business.find({id: busid});
+const checkBusinessId = async (busId) => {
+  const businesses = await Business.find({id: busId});
   
   if (!businesses)
     return false;
 
   for (let business of businesses) {
-    if (business.id === busid)
+    if (business.id === busId)
+      return true;
+  }
+
+  return false;
+}
+
+const checkClaimId = async (claimId) => {
+  const claims = await Claim.find({id: claimId});
+  
+  if (!claims)
+    return false;
+
+  for (let claim of claims) {
+    if (claims.id === claimId)
       return true;
   }
 
@@ -87,4 +121,5 @@ const checkBusinessId = async (busid) => {
 module.exports = {
   initKeyGen,
   initBusinessIdGen,
+  initClaimIdGen,
 };
