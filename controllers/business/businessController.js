@@ -3,6 +3,7 @@ const Business = require('../../models/Business')
 const { initBusinessIdGen } = require('../../utils/generateUtils')
 
 const createBusiness = async (req, res) => {
+  
   const { businessName, abn } = req.body
 
   try {
