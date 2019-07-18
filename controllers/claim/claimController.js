@@ -65,8 +65,8 @@ const login = async (req, res) => {
         let match = await checkHashMatch(`${secretKey}-${businessId}`, claim.secretKey);
         
         if (match) {
-          const { businessId, categories, comments, details } = claim;
-          return res.status(200).send({claimBusId: businessId, categories, comments, details });
+          const { businessId, categories, comments, details, timestamps, status } = claim;
+          return res.status(200).send({claimBusId: businessId, categories, comments, details, timestamps, status });
         }
       }
       
