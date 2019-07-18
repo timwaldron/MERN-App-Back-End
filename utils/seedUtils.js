@@ -188,6 +188,7 @@ const seedClaim = async (business) => {
       secretKey: encrypted,
     })
     savedClaim = await newClaim.save()
+    // console.log(savedClaim);
   }
   catch (error) {
     console.log('Error seeding claim: ', error.message);
