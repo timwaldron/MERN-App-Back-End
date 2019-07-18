@@ -1,7 +1,7 @@
 const Admin = require('../models/Admin')
 const Business = require('../models/Business')
 const Claim = require('../models/Claim')
-const { initBusinessIdGen, initKeyGen } = require('./generateUtils')
+const { initBusinessIdGen, initKeyGen, initClaimIdGen } = require('./generateUtils')
 
 const businesses = [
   {
@@ -45,7 +45,7 @@ const seedClaim = async (business) => {
   try {
     console.log(`Seeding Claim for Business: ${business.id} / ${business.name} / SECRET KEY: ${secret}`)
     const newClaim = await new Claim({
-      claimId: "ABCD1234",
+      id: await initClaimIdGen(),
       businessId: business.id,
       disclosureLevel: "1",
       categories: { misconduct: true, health: true, influence: true },
