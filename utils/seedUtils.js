@@ -3,6 +3,10 @@ const Business = require('../models/Business')
 const Claim = require('../models/Claim')
 const { initBusinessIdGen, initKeyGen, initClaimIdGen } = require('./generateUtils')
 
+const randInt = (min, max) => {
+  return Math.floor(Math.random() * max) + min;
+}
+
 const businesses = [
   {
     name: 'Coder Academy',
@@ -170,7 +174,8 @@ const seedClaim = async (business) => {
           'nulla pariatur. Excepteur sint occaecat cupidatat non proident, ' +
           'sunt in culpa qui officia deserunt mollit anim id est laborum.'
       },
-      status: "new",
+      status: randInt(0, 4),
+      priority: randInt(0, 4),
       comments: [],
       attachments: [],
       confirmed: true,
