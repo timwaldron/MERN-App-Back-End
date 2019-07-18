@@ -31,11 +31,12 @@ const createClaim = async (req, res) => {
       },
     });
     keys = await initKeyGen(newClaim.businessId);
-    newClaim.secretKey = keys.encrypted;
+    newClaim.secretKey = await keys.encrypted;
     let savedClaim = await newClaim.save();
     console.log("Successfully created new claim:", savedClaim);
-  } catch (ex) { 
-    console.log(ex);
+  } 
+  catch (error) { 
+    console.log('Error creating claim: ', error.message);
   }
   await res.status(200).send({secretKey: keys.secret.split('-')[0]});
 };
