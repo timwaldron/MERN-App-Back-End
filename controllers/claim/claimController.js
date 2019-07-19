@@ -19,7 +19,7 @@ const createClaim = async (req, res) => {
       disclosureLevel: "1",  // "0", "1", "2"
       categories: categories,
       details: answers,
-      status: "new",
+      status: 0,
       comments: [],
       attachments: [],
       confirmed: true,

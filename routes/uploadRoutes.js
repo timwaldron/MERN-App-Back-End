@@ -33,6 +33,9 @@ router.route('/')
     const { claimid } = req.headers
     try {
       const foundClaim = await Claim.findOne({id: claimid})
+      if (!foundClaim) {
+        res.status(400).send('claim not found')
+      }
       for (const file of req.files) {
         await foundClaim.attachments.push(file.location)
       }
