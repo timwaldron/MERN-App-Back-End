@@ -17,5 +17,7 @@ else
 router.use('/admin', require('./adminRoutes'));
 router.use('/claim', require('./claimRoutes'));
 router.use('/business', require('./businessRoutes'));
+router.use('/upload', require('./uploadRoutes'));
+
 
 module.exports = router;
