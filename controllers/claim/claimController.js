@@ -70,17 +70,6 @@ const login = async (req, res) => {
   }
 };
 
-const addComment = async (req, res) => {
-  const { claimId, comment } = req.body;
-  try {
-    const foundClaim = await Claim.findOne(claimId)
-    const updatedClaim = await foundClaim.comment.push(comment)
-    res.send(updatedClaim)
-  } catch (error) {
-    res.send(error.message)
-  }
-};
-
 const findClaim = async (req, res) => {
   const { id } = req.headers;
   console.log("Attempting to find claimId:", id);
@@ -93,9 +82,58 @@ const findClaim = async (req, res) => {
   }
 };
 
+const updatePriority = async (req, res) => {
+  console.log(req.body);
+  const { id, priority } = req.body;
+  console.log("Attempting to update claim id", id, "to priority", priority);
+
+  try {
+    const claim = await Claim.findOne({ id: id });
+    claim.priority = priority;
+    claim.timestamps.updatedAt = Date().toString();
+    const newClaim = await claim.save();
+    return res.status(200).send(newClaim)
+    
+  } catch (error) {
+    res.status(503).send(error.message)
+  }
+}
+
+const updateStatus = async (req, res) => {
+  console.log(req.body);
+  const { id, status } = req.body;
+  console.log("Attempting to update claim id", id, "to status", status);
+
+  try {
+    const claim = await Claim.findOne({ id: id });
+    claim.status = status;
+    claim.timestamps.updatedAt = Date().toString();
+    const newClaim = await claim.save();
+    return res.status(200).send(newClaim)
+    
+  } catch (error) {
+    res.status(503).send(error.message)
+  }
+}
+
+const addComment = async (req, res) => {
+  const { id, comment } = req.body;
+  try {
+    const claim = await Claim.findOne({id: id})
+    claim.comments.push({text: comment, timestamp: Date().toString()})
+    const newClaim = await claim.save();
+    return res.status(200).send(newClaim)
+  } catch (error) {
+    res.send(error.message)
+  }
+};
+
+
 module.exports = {
   createClaim,
+  login,
   findClaim,
+  updatePriority,
+  updateStatus,
   addComment,
-  login
 };
