@@ -4,8 +4,10 @@ const router = express.Router();
 const { checkAccessToken } = require('../controllers/middleware/private')
 const { createClaim, findClaim, addComment, login } = require('../controllers/claim/claimController');
 
+
 router.route('/new')
   .post(createClaim)
+
 
 router.route('/existing')
   // .get(findClaim)
