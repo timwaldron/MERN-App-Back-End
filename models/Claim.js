@@ -10,6 +10,7 @@ const claimSchema = new Schema({
   disclosureLevel: String,  // "0", "1", "2"
   categories: Object,
   details: Object,
+  questions: Array,
   status: Number,
   comments: Array,
   attachments: Array,

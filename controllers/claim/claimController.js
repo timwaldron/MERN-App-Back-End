@@ -7,7 +7,7 @@ const { checkHashMatch } = require('../../utils/authUtils')
 const createClaim = async (req, res) => {
   console.log(req.body);
   console.log("-------------------------------");
-  const { business_id, categories, answers } = req.body;
+  const { business_id, categories, answers, questions } = req.body;
 
   let newClaim = {response: undefined}
   let keys = {};
@@ -18,6 +18,7 @@ const createClaim = async (req, res) => {
       businessId: business_id,       // <ABC001>
       disclosureLevel: "1",  // "0", "1", "2"
       categories: categories,
+      questions: questions,
       details: answers,
       status: 0,
       comments: [],
@@ -57,8 +58,8 @@ const login = async (req, res) => {
         let match = await checkHashMatch(`${secretKey}-${businessId}`, claim.secretKey);
         
         if (match) {
-          const { businessId, categories, comments, details, timestamps, status } = claim;
-          return res.status(200).send({claimBusId: businessId, categories, comments, details, timestamps, status });
+          const { businessId, categories, comments, details, timestamps, status, questions } = claim;
+          return res.status(200).send({claimBusId: businessId, categories, comments, details, timestamps, status, questions });
         }
       }
       
