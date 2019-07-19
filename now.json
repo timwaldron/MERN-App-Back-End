@@ -4,7 +4,10 @@
   "version": 2,
   "env": {
     "DB_URL": "@db-url",
-    "JWT_SECRET": "@jwt-secret"
+    "JWT_SECRET": "@jwt-secret",
+    "AWS_ACCESSKEYID": "@aws-accesskeyid",
+    "AWS_SECRETACCESSKEY": "@aws-secretaccesskey",
+    "AWS_BUCKET_NAME": "@aws-bucket-name"
   },
   "builds" : [
     { "src": "server.js", "use": "@now/node-server" }
