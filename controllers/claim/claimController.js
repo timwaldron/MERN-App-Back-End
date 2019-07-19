@@ -128,7 +128,6 @@ const addComment = async (req, res) => {
   }
 };
 
-
 const getDashboardOpenClaims = async (req, res) => {
   try {
     let claims = await Claim.find({ status: { $ne: 3 } });
@@ -146,7 +145,7 @@ const getDashboardOpenClaims = async (req, res) => {
           priority: claim.priority,
           date: claim.timestamps.createdAt,
         });
-        
+
       } catch(error) {
         console.log("Caught an error while mapping over returned claims", claim.id, "\nError message:", error.message);
       }
