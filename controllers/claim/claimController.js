@@ -7,7 +7,7 @@ const { checkHashMatch } = require('../../utils/authUtils')
 const createClaim = async (req, res) => {
   console.log(req.body);
   console.log("-------------------------------");
-  const { business_id, categories, answers } = req.body;
+  const { business_id, categories, answers, questions } = req.body;
 
   let newClaim = {response: undefined}
   let keys = {};
@@ -18,6 +18,7 @@ const createClaim = async (req, res) => {
       businessId: business_id,       // <ABC001>
       disclosureLevel: "1",  // "0", "1", "2"
       categories: categories,
+      questions: questions,
       details: answers,
       status: 0,
       comments: [],
@@ -44,17 +45,6 @@ const createClaim = async (req, res) => {
   await res.status(200).send({secretKey: keys.secret.split('-')[0], id: newClaim.id});
 };
 
-const findClaim = async (req, res) => {
-  const { claimId } = req.body;
-  console.log("REQ.Body:", req.body);
-  try {
-    const foundClaim = await Claim.findOne(claimId)
-    res.send(foundClaim)
-  } catch (error) {
-    res.send(error.message)
-  }
-};
-
 const login = async (req, res) => {
   try {
     const { businessId, secretKey } = req.body;
@@ -68,8 +58,8 @@ const login = async (req, res) => {
         let match = await checkHashMatch(`${secretKey}-${businessId}`, claim.secretKey);
         
         if (match) {
-          const { businessId, categories, comments, details, timestamps, status } = claim;
-          return res.status(200).send({claimBusId: businessId, categories, comments, details, timestamps, status });
+          const { businessId, categories, comments, details, timestamps, status, questions } = claim;
+          return res.status(200).send({claimBusId: businessId, categories, comments, details, timestamps, status, questions });
         }
       }
       
@@ -86,6 +76,18 @@ const addComment = async (req, res) => {
     const foundClaim = await Claim.findOne(claimId)
     const updatedClaim = await foundClaim.comment.push(comment)
     res.send(updatedClaim)
+  } catch (error) {
+    res.send(error.message)
+  }
+};
+
+const findClaim = async (req, res) => {
+  const { id } = req.headers;
+  console.log("Attempting to find claimId:", id);
+
+  try {
+    const foundClaim = await Claim.findOne({id: id})
+    res.send(foundClaim)
   } catch (error) {
     res.send(error.message)
   }
