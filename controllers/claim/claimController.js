@@ -44,17 +44,6 @@ const createClaim = async (req, res) => {
   await res.status(200).send({secretKey: keys.secret.split('-')[0], claimId: newClaim.id});
 };
 
-const findClaim = async (req, res) => {
-  const { claimId } = req.body;
-  console.log("REQ.Body:", req.body);
-  try {
-    const foundClaim = await Claim.findOne(claimId)
-    res.send(foundClaim)
-  } catch (error) {
-    res.send(error.message)
-  }
-};
-
 const login = async (req, res) => {
   try {
     const { businessId, secretKey } = req.body;
@@ -86,6 +75,18 @@ const addComment = async (req, res) => {
     const foundClaim = await Claim.findOne(claimId)
     const updatedClaim = await foundClaim.comment.push(comment)
     res.send(updatedClaim)
+  } catch (error) {
+    res.send(error.message)
+  }
+};
+
+const findClaim = async (req, res) => {
+  const { id } = req.headers;
+  console.log("Attempting to find claimId:", id);
+
+  try {
+    const foundClaim = await Claim.findOne({id: id})
+    res.send(foundClaim)
   } catch (error) {
     res.send(error.message)
   }
