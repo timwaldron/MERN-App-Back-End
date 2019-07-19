@@ -42,10 +42,10 @@ const createClaim = async (req, res) => {
 };
 
 const findClaim = async (req, res) => {
-  const { claimId } = req.body;
-  console.log("REQ.Body:", req.body);
+  const { claimId } = req.headers;
+  console.log("Attempting to find claimId:", req.headers);
   try {
-    const foundClaim = await Claim.findOne(claimId)
+    const foundClaim = await Claim.findOne({id: claimId})
     res.send(foundClaim)
   } catch (error) {
     res.send(error.message)
