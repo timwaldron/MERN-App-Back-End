@@ -25,8 +25,8 @@ const createClaim = async (req, res) => {
       attachments: [],
       confirmed: true,
       timestamps: {             // Timestamps
-        createdAt: new Date().toString(),
-        updatedAt: new Date().toString(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
         actionedAt: "undefined",
         closedAt: "undefined",
       },
@@ -90,7 +90,7 @@ const updatePriority = async (req, res) => {
   try {
     const claim = await Claim.findOne({ id: id });
     claim.priority = priority;
-    claim.timestamps.updatedAt = Date().toString();
+    claim.timestamps.updatedAt = new Date();
     const newClaim = await claim.save();
     return res.status(200).send(newClaim)
     
@@ -107,7 +107,7 @@ const updateStatus = async (req, res) => {
   try {
     const claim = await Claim.findOne({ id: id });
     claim.status = status;
-    claim.timestamps.updatedAt = Date().toString();
+    claim.timestamps.updatedAt = Date();
     const newClaim = await claim.save();
     return res.status(200).send(newClaim)
     
@@ -120,7 +120,7 @@ const addComment = async (req, res) => {
   const { id, comment } = req.body;
   try {
     const claim = await Claim.findOne({id: id})
-    claim.comments.push({text: comment, timestamp: Date().toString()})
+    claim.comments.push({text: comment, timestamp: Date()})
     const newClaim = await claim.save();
     return res.status(200).send(newClaim)
   } catch (error) {
