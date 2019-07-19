@@ -93,6 +93,21 @@ const findClaim = async (req, res) => {
   }
 };
 
+const updatePriority = async (req, res) => {
+  const { id, priority } = req.headers;
+  console.log("Attempting to update claim id", id, "to priority", priority);
+
+  try {
+    const claim = await Claim.findOne({ id: id });
+    claim.priority = priority;
+    claim.timestampes.updatedAt = Date().toString();
+    const newClaim = await claim.save();
+    return res.status(200).send(newClaim)
+  } catch (error) {
+
+  }
+}
+
 module.exports = {
   createClaim,
   findClaim,
