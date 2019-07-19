@@ -41,7 +41,7 @@ const createClaim = async (req, res) => {
   catch (error) { 
     console.log('Error creating claim: ', error.message);
   }
-  await res.status(200).send({secretKey: keys.secret.split('-')[0], claimId: newClaim.id});
+  await res.status(200).send({secretKey: keys.secret.split('-')[0], id: newClaim.id});
 };
 
 const findClaim = async (req, res) => {
