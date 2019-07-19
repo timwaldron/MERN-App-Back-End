@@ -129,6 +129,35 @@ const addComment = async (req, res) => {
 };
 
 
+const getDashboardOpenClaims = async (req, res) => {
+  try {
+    let claims = await Claim.find({ status: { $ne: 3 } });
+    let mutatedClaims = [];
+    
+    for (let claim of claims) {
+      try {
+        let business = await Business.findOne({ id: claim.businessId })
+
+        mutatedClaims.push({
+          id: claim.id,
+          businessId: claim.businessId,
+          businessName: business.name,
+          status: claim.status,
+          priority: claim.priority,
+          date: claim.timestamps.createdAt,
+        });
+        
+      } catch(error) {
+        console.log("Caught an error while mapping over returned claims", claim.id, "\nError message:", error.message);
+      }
+    }
+    
+    res.status(200).send(mutatedClaims)
+  } catch (error) {
+    res.status(503).send(error.message)
+  }
+}
+
 module.exports = {
   createClaim,
   login,
@@ -136,4 +165,5 @@ module.exports = {
   updatePriority,
   updateStatus,
   addComment,
+  getDashboardOpenClaims,
 };

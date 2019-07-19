@@ -1,10 +1,12 @@
 const Admin = require('../../models/Admin');
+const Claim = require('../../models/Claim');
+const Business = require('../../models/Business');
+
 const { checkPassword, generateAccessToken } = require('../../utils/authUtils.js');
-const Claim = require('../../models/Claim')
 
 const showDashboard = async (req, res) => {
   try {
-    const claims = await Claim.find({})
+    const claims = await Claim.find({ status: { $ne: 3 } })
     res.status(200).send(claims)
   } catch (error) {
     res.status(503).send(error.message)
@@ -37,5 +39,5 @@ const login = async (req, res) => {
 
 module.exports = {
   login,
-  showDashboard
+  showDashboard,
 };
