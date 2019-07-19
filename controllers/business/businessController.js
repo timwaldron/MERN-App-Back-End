@@ -1,6 +1,6 @@
-
-const Business = require('../../models/Business')
-const { initBusinessIdGen } = require('../../utils/generateUtils')
+const Business = require('../../models/Business');
+const Claim = require('../../models/Claim');
+const { initBusinessIdGen } = require('../../utils/generateUtils');
 
 const createBusiness = async (req, res) => {
   
@@ -53,8 +53,38 @@ const findBusinessName = async (req, res) => {
   }
 }
 
+const countClaims = async (businessId) => {
+  try {
+    const claims = await Claim.find({ businessId: businessId });
+    return await claims.length;
+  }
+  catch (error) {
+    return res.status(503).send({ status: "error", message: "An internal server error has occured" })
+  }
+}
+
+const findAllBusinesses = async (req, res) => {
+  let businessArray = [];
+  let claims; 
+  try {
+    const businesses = await Business.find({});
+    for (let business of businesses) {
+      claims = await countClaims(business.id);
+      businessArray.push({ 
+        business: await business,
+        claimsCount: await claims,
+      });
+    }
+    return res.status(200).send({ businessArray });
+  }
+  catch (error) {
+    return res.status(503).send({ status: "error", message: "An internal server error has occured" })
+  }
+}
+
 module.exports = {
   createBusiness,
   checkBusinessId,
   findBusinessName,
+  findAllBusinesses,
 }
