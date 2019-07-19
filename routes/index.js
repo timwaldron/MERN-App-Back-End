@@ -19,6 +19,8 @@ if (process.env.ENVIRONMENT === "development") {
 router.use('/admin', require('./adminRoutes'));
 router.use('/claim', require('./claimRoutes'));
 router.use('/business', require('./businessRoutes'));
+router.use('/upload', require('./uploadRoutes'));
+
 
 // seeding route 
 router.get('/seed', (req, res) => {

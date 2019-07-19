@@ -14,7 +14,7 @@ const createClaim = async (req, res) => {
 
   try {
     newClaim = new Claim({
-      claimId: "ABCD1234",          // <ABCD1234>
+      id: "ABCD1234",          // <ABCD1234>
       businessId: business_id,       // <ABC001>
       disclosureLevel: "1",  // "0", "1", "2"
       categories: categories,
@@ -30,6 +30,9 @@ const createClaim = async (req, res) => {
         closedAt: "undefined",
       },
     });
+
+    
+
     keys = await initKeyGen(newClaim.businessId);
     newClaim.secretKey = await keys.encrypted;
     let savedClaim = await newClaim.save();
@@ -38,7 +41,7 @@ const createClaim = async (req, res) => {
   catch (error) { 
     console.log('Error creating claim: ', error.message);
   }
-  await res.status(200).send({secretKey: keys.secret.split('-')[0]});
+  await res.status(200).send({secretKey: keys.secret.split('-')[0], claimId: newClaim.id});
 };
 
 const findClaim = async (req, res) => {
@@ -92,5 +95,5 @@ module.exports = {
   createClaim,
   findClaim,
   addComment,
-  login,
+  login
 };
