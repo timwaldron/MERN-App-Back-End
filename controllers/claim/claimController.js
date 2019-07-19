@@ -34,11 +34,12 @@ const createClaim = async (req, res) => {
     
 
     keys = await initKeyGen(newClaim.businessId);
-    newClaim.secretKey = keys.encrypted;
+    newClaim.secretKey = await keys.encrypted;
     let savedClaim = await newClaim.save();
     console.log("Successfully created new claim:", savedClaim);
-  } catch (ex) { 
-    console.log(ex);
+  } 
+  catch (error) { 
+    console.log('Error creating claim: ', error.message);
   }
   await res.status(200).send({secretKey: keys.secret.split('-')[0], claimId: newClaim.id});
 };
@@ -67,8 +68,8 @@ const login = async (req, res) => {
         let match = await checkHashMatch(`${secretKey}-${businessId}`, claim.secretKey);
         
         if (match) {
-          const { businessId, categories, comments, details } = claim;
-          return res.status(200).send({claimBusId: businessId, categories, comments, details });
+          const { businessId, categories, comments, details, timestamps, status } = claim;
+          return res.status(200).send({claimBusId: businessId, categories, comments, details, timestamps, status });
         }
       }
       
