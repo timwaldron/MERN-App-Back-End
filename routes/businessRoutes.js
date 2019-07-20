@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const { checkAccessToken } = require('../controllers/middleware/private')
-const { createBusiness, checkBusinessId, findBusinessName, findAllBusinesses } = require('../controllers/business/businessController')
+const { createBusiness, checkBusinessId, findBusinessById, findAllBusinesses } = require('../controllers/business/businessController')
 
 router.route('/new')
   .post(checkAccessToken, createBusiness);
@@ -11,7 +11,7 @@ router.route('/check')
   .get(checkBusinessId);
 
 router.route('/find')
-  .get(checkAccessToken, findBusinessName);
+  .get(checkAccessToken, findBusinessById);
 
 router.route('/all')
   .get(checkAccessToken, findAllBusinesses);

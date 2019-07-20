@@ -66,8 +66,10 @@ const seedClaim = async (business) => {
   let savedClaim;
   let secretKey = await initKeyGen(business.id);
   let { encrypted, secret } = secretKey;
+
   try {
-    console.log(`Seeding Claim for Business: ${business.id} / ${business.name} / SECRET KEY: ${secret}`)
+    console.log(`Seeding Claim for Business: ${business.id} / ${business.name} / SECRET KEY: ${secret.split('-')[0]}`)
+
     const newClaim = await new Claim({
       id: await initClaimIdGen(),
       businessId: business.id,
@@ -214,8 +216,8 @@ const seedClaim = async (business) => {
       attachments: [],
       confirmed: true,
       timestamps: {
-        createdAt: new Date().toString(),
-        updatedAt: new Date().toString(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
         actionedAt: "undefined",
         closedAt: "undefined",
       },

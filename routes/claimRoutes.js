@@ -2,11 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const { checkAccessToken } = require('../controllers/middleware/private')
-const { createClaim, login, findClaim, updatePriority, updateStatus, addComment,  } = require('../controllers/claim/claimController');
+const { createClaim, login, findClaim, updatePriority, updateStatus, addComment, getDashboardOpenClaims  } = require('../controllers/claim/claimController');
 
 router.route('/new')
   .post(createClaim)
-
 
 router.route('/existing')
   // .get(findClaim)
@@ -26,5 +25,8 @@ router.route('/update/status')
 
 router.route('/add/comment')
   .post(checkAccessToken, addComment);
+
+router.route('/all/find/open')
+  .get(checkAccessToken, getDashboardOpenClaims);
 
 module.exports = router;

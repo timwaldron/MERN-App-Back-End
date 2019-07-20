@@ -3,6 +3,7 @@ const cors = require('cors');
 const router = express.Router();
 
 const { seedData } = require('../utils/seedUtils');
+const { checkAccessToken } = require('../controllers/middleware/private')
 
 // middleware
 router.use(express.json())
@@ -23,7 +24,7 @@ router.use('/upload', require('./uploadRoutes'));
 
 
 // seeding route 
-router.get('/seed', (req, res) => {
+router.get('/seed', checkAccessToken, (req, res) => {
   seedData();
   res.status(200).send('Seeded Business and Claims Data')
 })
