@@ -24,7 +24,7 @@ let upload = multer({
     },
     contentType: multerS3.AUTO_CONTENT_TYPE
   })
-}).array('file');
+}).array('file'); 
 
 
 router.route('/')
@@ -45,6 +45,23 @@ router.route('/')
     } catch (error) {
       res.send(error.message)
     }
+  })
+  .get(async (req, res) => {
+    const { url } = req.headers;
+
+    let params = {
+      Bucket: process.env.AWS_BUCKET_NAME, 
+      Key: url
+    }
+    
+    await s3.getSignedUrl('getObject', params, function(err, url){
+      if (err) {
+        res.send(error.message)
+      } else {
+        res.status(200).send(url)
+      }
+    });
+    
   })
 
 module.exports = router
