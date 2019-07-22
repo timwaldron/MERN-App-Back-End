@@ -7,10 +7,6 @@ const { createClaim, login, findClaim, updatePriority, updateStatus, addComment,
 router.route('/new')
   .post(createClaim)
 
-router.route('/existing')
-  // .get(findClaim)
-  .post(addComment)
-
 router.route('/find')
   .get(checkAccessToken, findClaim)
 
@@ -26,7 +22,7 @@ router.route('/update/status')
 router.route('/add/comment')
   .post(checkAccessToken, addComment);
 
-router.route('/all/find/open')
+router.route('/find/open')
   .get(checkAccessToken, getDashboardOpenClaims);
 
 module.exports = router;
