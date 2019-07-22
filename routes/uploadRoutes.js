@@ -47,31 +47,21 @@ router.route('/')
     }
   })
   .get(async (req, res) => {
-    const { claimid } = req.headers;
+    const { url } = req.headers;
 
-    const foundClaim = await Claim.findOne({id: claimid})
-    
-    const { attachments: urls }  = foundClaim
-    
     let params = {
       Bucket: process.env.AWS_BUCKET_NAME, 
-      Key: ""
+      Key: url
     }
-
-    for (const url of urls) {
-      let files = []
-      params.Key = url
-      await s3.getSignedUrl('getObject', params, function(err, url){
-        if (err) {
-          res.send(error.message)
-        } else {
-          files.push(url)
-          console.log(files)
-        }
-        return files
-      });
-    }
-    res.status(200).send(files)
+    
+    await s3.getSignedUrl('getObject', params, function(err, url){
+      if (err) {
+        res.send(error.message)
+      } else {
+        res.status(200).send(url)
+      }
+    });
+    
   })
 
 module.exports = router
