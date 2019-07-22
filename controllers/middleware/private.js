@@ -2,8 +2,6 @@ const jwt = require('jsonwebtoken')
 
 const checkAccessToken = (req, res, next) => {
   const { token } = req.cookies
-  let printToken = token;
-  console.log("Token", printToken.slice(1, 30) + "...", "accessing the path", req.originalUrl);
   
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
