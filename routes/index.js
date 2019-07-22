@@ -12,7 +12,7 @@ if (process.env.ENVIRONMENT === "development") {
   console.log("Loading dev CORS");
   router.use(cors({ origin: 'http://127.0.0.1:3000', credentials: true }));
 } else {
-  router.use(cors({ origin: 'http://disclosures.netlify.com', credentials: true }));
+  router.use(cors({ origin: 'https://disclosures.netlify.com', credentials: true }));
 }
 
 
