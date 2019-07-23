@@ -40,6 +40,16 @@ const initClaimIdGen = async () => {
   return claimId;
 }
 
+const generateAwsKey = () => {
+  let range = "ACDEFGHJKLMNPQRSTUVWXYZ2345679";
+  let secretKey = "";
+
+  for(let i = 0; i < 8; i++)
+    secretKey += range[Math.floor(Math.random() * (range.length))]
+
+  return secretKey;
+};
+
 const generateSecretKey = (busId) => {
   let range = "ACDEFGHJKLMNPQRSTUVWXYZ2345679";
   let secretKey = "";
@@ -122,4 +132,5 @@ module.exports = {
   initKeyGen,
   initBusinessIdGen,
   initClaimIdGen,
+  generateAwsKey
 };
