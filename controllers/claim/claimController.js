@@ -1,7 +1,7 @@
 const Claim = require('../../models/Claim');
 const Business = require('../../models/Business')
 
-const { initKeyGen } = require('../../utils/generateUtils')
+const { initKeyGen, initClaimIdGen } = require('../../utils/generateUtils')
 const { checkHashMatch } = require('../../utils/authUtils')
 
 const createClaim = async (req, res) => {
@@ -14,7 +14,7 @@ const createClaim = async (req, res) => {
 
   try {
     newClaim = new Claim({
-      id: "ABCD1234",          // <ABCD1234>
+      id: await initClaimIdGen(),          // <ABCD1234>
       businessId: business_id,       // <ABC001>
       disclosureLevel: "1",  // "0", "1", "2"
       categories: categories,
