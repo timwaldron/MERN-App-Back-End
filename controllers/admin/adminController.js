@@ -33,7 +33,7 @@ const login = async (req, res) => {
         await res.cookie('token', token, { path: '/admin' });
         return res.status(200).send({ status: "success", message: "Logged into the admin development environment" });
       } else {
-        await res.cookie('token', token, { domain: 'disclosures.netlify.com', path: '/admin', secure: true });
+        await res.cookie('token', token, { domain: 'disclosures.netlify.com', path: '/admin', secure: true, sameSite: false });
         return res.status(200).send({ status: "success", message: "Logged into the admin production environment" });
       }
         
