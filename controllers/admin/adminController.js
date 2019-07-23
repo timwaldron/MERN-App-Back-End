@@ -28,7 +28,9 @@ const login = async (req, res) => {
     if (!passwordMatch)
       return res.status(401).send({ status: "error", message: "Invalid email or password" });
     else {
-      res.cookie('token', generateAccessToken({ email: email, role: "admin" }));
+      const token = generateAccessToken({ email: email, role: "admin" });
+      console.log("The token for login is", token);
+      res.cookie('token', token);
       return res.status(200).send({ status: "success", message: "Successfully logged in" });
     }
 
