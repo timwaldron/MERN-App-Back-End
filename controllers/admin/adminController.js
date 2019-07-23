@@ -14,7 +14,6 @@ const showDashboard = async (req, res) => {
 }
 
 const login = async (req, res) => {
-  console.log("Attempting login\nreq.body:", req.body);
 
   try {
     const { email, password, jwt } = req.body;
@@ -29,8 +28,12 @@ const login = async (req, res) => {
       return res.status(401).send({ status: "error", message: "Invalid email or password" });
     else {
       const token = generateAccessToken({ email: email, role: "admin" });
-      console.log("The token for login is", token);
-      res.cookie('token', token);
+
+      if (process.env.ENVIRONMENT === "development")
+        res.cookie('token', token, { path: '/admin' });
+      else
+        res.cookie('token', token, { domain: 'disclosures.netlify.com', path: '/admin', secure: true });
+        
       return res.status(200).send({ status: "success", message: "Successfully logged in" });
     }
 
