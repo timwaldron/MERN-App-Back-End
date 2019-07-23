@@ -29,12 +29,14 @@ const login = async (req, res) => {
     else {
       const token = generateAccessToken({ email: email, role: "admin" });
 
-      if (process.env.ENVIRONMENT === "development")
-        res.cookie('token', token, { path: '/admin' });
-      else
-        res.cookie('token', token, { domain: 'disclosures.netlify.com', path: '/admin', secure: true });
+      if (process.env.ENVIRONMENT === "development") {
+        await res.cookie('token', token, { path: '/admin' });
+        return res.status(200).send({ status: "success", message: "Logged into the admin development environment" });
+      } else {
+        await res.cookie('token', token, { domain: 'disclosures.netlify.com', path: '/admin', secure: true });
+        return res.status(200).send({ status: "success", message: "Logged into the admin production environment" });
+      }
         
-      return res.status(200).send({ status: "success", message: "Successfully logged in" });
     }
 
   } catch(ex) {
