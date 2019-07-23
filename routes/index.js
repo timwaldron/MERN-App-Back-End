@@ -10,10 +10,17 @@ router.use(express.json())
 
 if (process.env.ENVIRONMENT === "development") {
   console.log("Loading dev CORS");
-  router.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+  router.use(cors({ origin: ['http://localhost:3000','http://127.0.0.1:3000'], credentials: true }));
 } else {
   router.use(cors({ origin: 'https://disclosures.netlify.com', credentials: true }));
 }
+
+// router.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//   res.header("Access-Control-Allow-Credentials", true);
+//   next();
+// });
 
 
 // routing

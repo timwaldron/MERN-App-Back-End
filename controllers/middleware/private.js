@@ -7,7 +7,7 @@ const checkAccessToken = (req, res, next) => {
     if (err) {
       return res.status(403).send({message: 'You are not authorized', error: err, requestedToken: token })
     } else {
-      // console.log(decoded)// you have access to decoded here
+      // console.log("Decoded JWT:", decoded)
       next()
     }
   })
