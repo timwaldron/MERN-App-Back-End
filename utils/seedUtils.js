@@ -27,23 +27,23 @@ const businesses = [
 ]
 
 const questions = [
-  'Are you or anyone else in physical danger? If so, please call 000 immediately',
-  'What is the concern/incident that you wish to disclose? Please provide a full description of your concerns/incident and why you identify them as the type of disclosure that you have, above?',
-  'When did this concern occur? Please provide exact dates/times, did it arise in work hours/after hours?',
-  'Where did the issue occur? Please be as specific as possible – was it on the organisation’s premises? If so, exactly where? Via email or social media? During/after work hours? At a social event?',
-  'Who was involved? What were the names and positions of those involved, if known?',
-  'Who do you consider is responsible for the conduct you wish to report? What were the names and positions of those responsible, if known?',
-  'Were there any witnesses? What were the names and positions of those involved, if known?',
-  'How did this incident occur? Please explain the process/steps?',
-  'Is there any physical documentation or evidence of the incident occurring? (What? Where?)',
-  'Have you reported the incident/s internally, or through any other channels?',
-  'Who would you normally report this incident to within the organisation?',
-  'Have you raised this issue with someone in the organisation? If so, with whom have you raised the issue?',
-  'Have you reported this to any external agencies or government departments? If so, which departments? What is the status of the complaint within the agency or department?',
-  'Has this issue occurred before? (If so, with what frequency and during what period of time? Please provide as much detail as possible.',
-  'Will follow-up action identify you as the person reporting the incident? If so, how might this arise?',
-  'Is this incident contrary to your organisation’s policies or procedures? If so, which policies or procedures (eg Code of Conduct? Anti-Sexual Harassment Policy? Anti-Bullying Policy? Conflict of Interest Policy?)',
-  'Has anyone been injured as a result of this or similar issues?',
+  'This is Qusetion 1',
+  'This is Qusetion 2',
+  'This is Qusetion 3',
+  'This is Qusetion 4',
+  'This is Qusetion 5',
+  'This is Qusetion 6',
+  'This is Qusetion 7',
+  'This is Qusetion 8',
+  'This is Qusetion 9',
+  'This is Qusetion 10',
+  'This is Qusetion 11',
+  'This is Qusetion 12',
+  'This is Qusetion 13',
+  'This is Qusetion 14',
+  'This is Qusetion 15',
+  'This is Qusetion 16',
+  'This is Qusetion 17'
 ]
 
 const seedBusiness = async (business) => {
