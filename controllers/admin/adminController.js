@@ -27,16 +27,8 @@ const login = async (req, res) => {
     if (!passwordMatch)
       return res.status(401).send({ status: "error", message: "Invalid email or password" });
     else {
-      const token = generateAccessToken({ email: email, role: "admin" });
-
-      if (process.env.ENVIRONMENT === "development") {
-        await res.cookie('token', token, { path: '/admin' });
-        return res.status(200).send({ status: "success", message: "Logged into the admin development environment" });
-      } else {
-        await res.cookie('token', token, { domain: 'disclosures.netlify.com', path: '/admin', secure: true });
-        return res.status(200).send({ status: "success", message: "Logged into the admin production environment" });
-      }
-        
+      res.cookie('token', generateAccessToken({ email: email, role: "admin" }));
+      return res.status(200).send({ status: "success", message: "Logged into the admin production environment" });
     }
 
   } catch(ex) {
