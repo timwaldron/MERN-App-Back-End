@@ -20,6 +20,7 @@ const createClaim = async (req, res) => {
       categories: categories,
       questions: questions,
       details: answers,
+      priority: 0,
       status: 0,
       comments: [],
       attachments: [],

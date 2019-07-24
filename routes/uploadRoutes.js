@@ -41,6 +41,7 @@ router.route('/')
         return res.status(400).send('claim not found')
       }
       for (const file of req.files) {
+        console.log()
         let splitUrl = file.location.split('m/')
         console.log('splitUrl:', splitUrl[1])
         await foundClaim.attachments.push(splitUrl[1])
@@ -60,7 +61,7 @@ router.route('/')
     let params = {
       Bucket: process.env.AWS_BUCKET_NAME, 
       Key: url,
-      Expires: 300000
+      Expires: 3600
     }
     
     await s3.getSignedUrl('getObject', params, function(err, url){
