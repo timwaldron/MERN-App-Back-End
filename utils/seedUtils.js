@@ -27,23 +27,23 @@ const businesses = [
 ]
 
 const questions = [
-  'This is Qusetion 1',
-  'This is Qusetion 2',
-  'This is Qusetion 3',
-  'This is Qusetion 4',
-  'This is Qusetion 5',
-  'This is Qusetion 6',
-  'This is Qusetion 7',
-  'This is Qusetion 8',
-  'This is Qusetion 9',
-  'This is Qusetion 10',
-  'This is Qusetion 11',
-  'This is Qusetion 12',
-  'This is Qusetion 13',
-  'This is Qusetion 14',
-  'This is Qusetion 15',
-  'This is Qusetion 16',
-  'This is Qusetion 17'
+  'This is Question 1',
+  'This is Question 2',
+  'This is Question 3',
+  'This is Question 4',
+  'This is Question 5',
+  'This is Question 6',
+  'This is Question 7',
+  'This is Question 8',
+  'This is Question 9',
+  'This is Question 10',
+  'This is Question 11',
+  'This is Question 12',
+  'This is Question 13',
+  'This is Question 14',
+  'This is Question 15',
+  'This is Question 16',
+  'This is Question 17'
 ]
 
 const seedBusiness = async (business) => {
