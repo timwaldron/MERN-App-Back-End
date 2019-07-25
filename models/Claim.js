@@ -8,6 +8,7 @@ const claimSchema = new Schema({
   businessId: String,       // <ABC001>
   secretKey: String,        // Bcrypt'd
   disclosureLevel: String,  // "0", "1", "2"
+  claimantDetails: Object,
   categories: Object,
   details: Object,
   questions: Array,

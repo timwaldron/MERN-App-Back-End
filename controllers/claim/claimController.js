@@ -5,18 +5,21 @@ const { initKeyGen, initClaimIdGen } = require('../../utils/generateUtils')
 const { checkHashMatch } = require('../../utils/authUtils')
 
 const createClaim = async (req, res) => {
-  console.log(req.body);
-  console.log("-------------------------------");
-  const { business_id, categories, answers, questions } = req.body;
+  const { business_id, categories, answers, questions, disclosureLevel, claimantDetails } = req.body;
 
   let newClaim = {response: undefined}
+  let contactDetails = {};
   let keys = {};
+
+  if (disclosureLevel !== "completely-anonymous")
+    contactDetails = claimantDetails;
 
   try {
     newClaim = new Claim({
       id: await initClaimIdGen(),          // <ABCD1234>
       businessId: business_id,       // <ABC001>
-      disclosureLevel: "1",  // "0", "1", "2"
+      disclosureLevel: disclosureLevel,  // "0", "1", "2"
+      claimantDetails: contactDetails,
       categories: categories,
       questions: questions,
       details: answers,
