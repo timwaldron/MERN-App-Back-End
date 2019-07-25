@@ -128,9 +128,15 @@ const checkClaimId = async (claimId) => {
   return false;
 }
 
-module.exports = {
+module.exports = { 
   initKeyGen,
-  initBusinessIdGen,
-  initClaimIdGen,
-  generateAwsKey
+  generateSecretKey, 
+  checkSecretKey, 
+  initBusinessIdGen, 
+  generateBusinessId, 
+  checkBusinessId, 
+  initClaimIdGen, 
+  generateClaimId, 
+  checkClaimId, 
+  generateAwsKey 
 };
