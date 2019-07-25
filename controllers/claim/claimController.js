@@ -62,8 +62,8 @@ const login = async (req, res) => {
         let match = await checkHashMatch(`${secretKey}-${businessId}`, claim.secretKey);
         
         if (match) {
-          const { businessId, categories, comments, details, timestamps, status, questions, attachments } = claim;
-          return res.status(200).send({ claimBusId: businessId, categories, comments, details, timestamps, status, questions, attachments });
+          const { businessId, categories, comments, details, timestamps, status, questions, attachments, id } = claim;
+          return res.status(200).send({ claimBusId: businessId, categories, comments, details, timestamps, status, questions, attachments, id });
         }
       }
       
@@ -121,12 +121,12 @@ const updateStatus = async (req, res) => {
 }
 
 const addComment = async (req, res) => {
-  const { id, comment } = req.body;
+  const { id, comment, user } = req.body;
   try {
     const claim = await Claim.findOne({id: id})
-    claim.comments.push({text: comment, timestamp: Date()})
+    claim.comments.push({text: comment, timestamp: Date(), user: user})
     const newClaim = await claim.save();
-    return res.status(200).send(newClaim)
+    return res.status(200).send(newClaim.comments)
   } catch (error) {
     res.send(error.message)
   }
