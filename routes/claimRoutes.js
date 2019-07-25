@@ -22,6 +22,9 @@ router.route('/update/status')
 router.route('/add/comment')
   .post(checkAccessToken, addComment);
 
+router.route('/new/comment')
+  .post(addComment);
+
 router.route('/find/open')
   .get(checkAccessToken, getDashboardOpenClaims);
 
